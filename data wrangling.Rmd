@@ -1,0 +1,133 @@
+---
+title: "Data Wrangling"
+author: "Danielle Lawrence"
+date: "10/21/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Chapter 9  
+Wrangling includes: import, tidy, and transform  
+
+Relational data will give you tools for working with multiple interrelated datasets.  
+
+Strings will introduce regular expressions, a powerful tool for manipulating strings.  
+
+Factors are how R stores categorical data. They are used when a variable has a fixed set of possible values, or when you want to use a non-alphabetical ordering of a string.  
+
+Dates and times will give you the key tools for working with dates and date-times.  
+
+
+
+### Chapter 10  
+
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+  
+10.2  
+ as_tibble(data) to make a data frame into a tibble  
+ tibble() creates a new tibble from individual vectors  
+ another way is tribble()  
+ 
+10.3.1 Printing  
+tibbles print first 10 rows and as many columns that an fit  
+can change how much shows when print with print()  
+
+10.3.2 Subsetting  
+df <- tibble(
+  x = runif(5),
+  y = rnorm(5))  
+to extract by name: df$x or df[["x"]]  
+to extract by position: df[[1]]  
+to use these in a pipe you have to add .  
+
+10.5 Exercises  
+1. If only the first 10 rows are printed  
+
+2. 
+```{r}
+df <- as_tibble(abc = 1, xyz = "a")
+df$x
+df[, "xyz"]
+df[, c("abc", "xyz")]
+```
+it resulted in an error when I try to do a tibble  
+
+3. data$var or data[["var"]]  
+
+4.  
+  -- data$1 or data[["1"]]   
+  -- x=1 y=2  
+  -- mutate the data into 3 = 2/1  
+  -- rename them  
+
+5. changes named vectors into names and values  
+
+6. you can use print(n=?) to change what prints out  
+
+
+
+Chapter 11  
+many ways to read in data, but we focus on read_csv()  
+it prints out a column that gives the name and type of each column  
+col_names = FALSE if they arent named  
+skip = n to skip the first n lines  
+
+11.2.2 Exercises  
+1. read_delim()  
+2. na and col_names  
+3. fwf_widths() or fwf_positions  
+4. read_delim()  
+5. there are different separations within the same code  
+
+
+11.3  
+parse_*()  
+
+8 important ones:  
+parse_logical() and parse_integer() parse logicals and integers respectively. There’s basically nothing that can go wrong with these parsers so I won’t describe them here further.  
+
+parse_double() is a strict numeric parser, and parse_number() is a flexible numeric parser. These are more complicated than you might expect because different parts of the world write numbers in different ways.  
+
+parse_character() seems so simple that it shouldn’t be necessary. But one complication makes it quite important: character encodings.  
+
+parse_factor() create factors, the data structure that R uses to represent categorical variables with fixed and known values.  
+
+parse_datetime(), parse_date(), and parse_time() allow you to parse various date & time specifications. These are the most complicated because there are so many different ways of writing dates.  
+  
+
+11.3.5 Exercises  
+1. date_names, date_format, time_format  
+2. if they're the same, its an error. if decimal is comman, then grouping is period. then it can be flipped  
+3. used to describe date and time formats. like data from another country.  
+4. locale(date_format = "%d/%m/%Y")  
+5. read_csv() uses a comma, read_csv2() uses semicolons  
+6. ASCII  
+7.  
+d1 <- "January 1, 2010"
+d2 <- "2015-Mar-07"
+d3 <- "06-Jun-2017"
+d4 <- c("August 19 (2015)", "July 1 (2015)")
+d5 <- "12/30/14" # Dec 30, 2014
+t1 <- "1705"
+t2 <- "11:15:10.12 PM"
+
+parse_date(d1, "%B %d, %Y")
+parse_date(d2, "%Y-%b-%d")
+parse_date(d3, "%d-%b-%Y")
+parse_date(d4, "%B %d (%Y)")
+parse_date(d5, "%m/%d/%y")
+parse_time(t1, "%H%M")
+
+
+
+
+
+
+
+
